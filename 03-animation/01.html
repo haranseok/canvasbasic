@@ -2,8 +2,8 @@
 <html>
   <head>
     <title>Canvas</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
       .canvas {
         background: #eee;
@@ -18,22 +18,38 @@
     <script>
       const canvas = document.querySelector('.canvas');
       const context = canvas.getContext('2d');
+      let xPos = 10;
+      let timerId;
       // 캔버스에서 에니메이션 그리는 방법 캔버스는 그림이다.
       // 공을 그려서 움직이려면 공을 그리고 지우고 그리고 지우는 방식으로 나눠서 그려주는 방식으로 해야한다.
-      
+
       // 360도는 2파이다 Math.PI*2
-      function draw(){
-        context.arc(10,150,5,0,Math.PI*2)
+      function draw() {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.beginPath(); // 필수로 넣어줘야함.
+        context.arc(xPos, 150, 10, 0, Math.PI * 2);
+        context.fill();
+        xPos += 1;
+
+        // requestAnimationFrame() 반복적으로 그릴 함수 안에서 호출을 해주면 된다. 첫번째 인자는 그릴 함수,
+
+        // 애니메이션을 멈추는 기능 1
+        // canvas의 width에서 원의 반지름을 빼준다.
+        //if (xPos >= canvas.width - 10) {
+        // return;
+        // }
+        timerId = requestAnimationFrame(draw); // 반복적으로 그릴 함수 안에서 호출하면 계속 반복적으로 그려진다.
+        // 애니메이션을 멈추는 기능 2
+        if (xPos >= canvas.width - 10) {
+          cancelAnimationFrame(timerId);
+        }
       }
+
+      draw();
+      // 애니메이션을 멈추는 기능 3
+      canvas.addEventListener('click', () => {
+        cancelAnimationFrame(timerId);
+      });
     </script>
   </body>
 </html>
-
-
-
-
-
-
-
-
-

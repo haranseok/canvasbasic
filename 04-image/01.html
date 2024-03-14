@@ -2,8 +2,8 @@
 <html>
   <head>
     <title>Canvas</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
       canvas {
         background: #eee;
@@ -13,7 +13,9 @@
 
   <body>
     <h1>Image</h1>
-    <canvas class="canvas" width="600" height="400">이 브라우저는 캔버스를 지원하지 않습니다.</canvas>
+    <canvas class="canvas" width="600" height="400"
+      >이 브라우저는 캔버스를 지원하지 않습니다.</canvas
+    >
 
     <script>
       const canvas = document.querySelector('.canvas');
@@ -21,21 +23,20 @@
 
       // const imgElem = document.createElement('img');
       const imgElem = new Image();
-      imgElem.src = '../images/ilbuni1.png';
+
+      imgElem.src = '../images/ilbuni1.png'; // 외부 데이터이다. 로드될 시간이 필요하다.
       imgElem.addEventListener('load', () => {
-        context.drawImage(imgElem, 50, 50);
-        context.drawImage(imgElem, 50, 50, 70, 120);
+        // 로드가 되면 실행될 이미지 그리기
+        // drawImage(이미지 객체, X위치, Y위치) - 이미지의 원본 사이즈로 그려짐.
+        context.drawImage(imgElem, 50, 50); //dx, dy 캔버스에 그릴 위치
+        context.drawImage(imgElem, 50, 50, 70, 120); // 70, 120은 이미지의 크기
         context.drawImage(imgElem, 100, 100, 200, 200, 0, 0, 100, 100);
+
+        /**drawImage(image, dx, dy) dx, dy 캔버스에 그릴 위치 - 이미지 원본 크기로 그려짐
+          drawImage(image, dx, dy, dWidth, dHeight) 이미지 객체, 캔버스에 그릴 X좌표 Y좌표 그림 사이즈
+          drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight) - sx, sy 소스 좌표 - 원래 이미지의 특정 이미지를 가지고 올 때 사용 - 이미지의 특정 부분을 특정 사이즈 만큼 가지고 와서 캔버스의 특정 위치에 이만한 사이즈로 그린다.
+        */
       });
     </script>
   </body>
 </html>
-
-
-
-
-
-
-
-
-

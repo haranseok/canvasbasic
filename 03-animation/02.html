@@ -2,8 +2,8 @@
 <html>
   <head>
     <title>Canvas</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
       .canvas {
         background: #eee;
@@ -24,26 +24,17 @@
       function draw() {
         context.clearRect(0, 0, canvas.width, canvas.height);
         context.beginPath();
-        context.arc(xPos, 150, 10, 0, Math.PI*2, false);
+        context.arc(xPos, 150, 10, 0, Math.PI * 2, false);
         context.fill();
         xPos += 10;
         // xPos = xPos + 3;
       }
 
-      timerId = setInterval(draw, 500);
+      timerId = setInterval(draw, 500); // 잘 사용하지 않음. 그려그려그려 하다가 버벅거리는 순간이 있다. requsetAnimation을 사용하는 추세
 
       canvas.addEventListener('click', () => {
-        clearInterval(timerId);
+        clearInterval(timerId); // 애니메이션 멈추기
       });
     </script>
   </body>
 </html>
-
-
-
-
-
-
-
-
-

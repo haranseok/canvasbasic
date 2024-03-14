@@ -2,8 +2,8 @@
 <html>
   <head>
     <title>Canvas</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
       .canvas {
         background: #eee;
@@ -22,10 +22,12 @@
       let count = 0;
 
       function draw() {
+        // setInterval로 조정한 것과 같이 느리게 동작하도록 처리된다.
+        // 0.5초에 한번씩 실행되는 형태로 구현되게 됨.
         if (count % 30 === 0) {
           context.clearRect(0, 0, canvas.width, canvas.height);
           context.beginPath();
-          context.arc(xPos, 150, 10, 0, Math.PI*2, false);
+          context.arc(xPos, 150, 10, 0, Math.PI * 2, false);
           context.fill();
           xPos += 5;
           // xPos = xPos + 3;
@@ -39,12 +41,3 @@
     </script>
   </body>
 </html>
-
-
-
-
-
-
-
-
-
