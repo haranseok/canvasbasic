@@ -18,19 +18,26 @@
 
     <script>
       function 라디안(각도) {
-        return (각도 * Math.PI) / 180;
+        return (각도 * Math.PI) / 180; // 호도각을 계산한다.
       }
       // beginPath
       // arc
       // closePath
       const canvas = document.querySelector('.canvas');
       const context = canvas.getContext('2d');
-      context.beginPath();
-      context.arc(300, 200, 50, 0, 라디안(360), false);
-      context.stroke();
-      context.beginPath();
-      context.arc(500, 100, 20, 0, 라디안(360), false);
-      context.stroke();
-    </script>
+      // 위치를 잡아주는 데, 도형의 왼쪽 위가 기준이 아니고 호이기 때문에 중심점을 잡아주면 된다.
+      // 위치, 반지름의 크기, 원을 그리려면 360도 (0도 부터 360까지) , 라디안-각도인데 표현 방식이 다른 각도 360 = 2파이, 1도 = 파이/180 , boolean값을 넣어준다.(시계방향으로 갈건지 반시계방향으로 갈건지 설정
+      
+      context.beginPath(); // 시작 - 이 처리를 안해주면 도형이 끊어져서 그려지는 게 아니고 연결되어 그려진다.
+      context.arc(300,200, 50, 0, 라디안(360), false);// 원그리기 - 호를 그린다 원을 그리려면 360도를 생각하면 된다. / 만들기
+      context.stroke() // 그리기
+      context.beginPath(); // 시작
+      context.arc(500,100, 20, 0, 라디안(360), false);  // 만들기    
+      context.stroke(); // 그리기
+      
+      // 베지엘 곡선? 복잡한 곡선을 그리는 방법 - 캔버스 그리기 하나씩 해보면 좋을 듯 mdn
+      
+    
+ </script>
   </body>
 </html>

@@ -18,33 +18,13 @@
     <script>
       const canvas = document.querySelector('.canvas');
       const context = canvas.getContext('2d');
-      let xPos = 10;
-      let timerId;
-
-      function draw() {
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        context.beginPath();
-        context.arc(xPos, 150, 10, 0, Math.PI*2, false);
-        context.fill();
-        xPos += 1;
-        // xPos = xPos + 3;
-
-        // if (xPos >= canvas.width-10) {
-        //   return;
-        // }
-
-        timerId = requestAnimationFrame(draw);
-
-        // if (xPos >= canvas.width-10) {
-        //   cancelAnimationFrame(timerId);
-        // }
+      // 캔버스에서 에니메이션 그리는 방법 캔버스는 그림이다.
+      // 공을 그려서 움직이려면 공을 그리고 지우고 그리고 지우는 방식으로 나눠서 그려주는 방식으로 해야한다.
+      
+      // 360도는 2파이다 Math.PI*2
+      function draw(){
+        context.arc(10,150,5,0,Math.PI*2)
       }
-
-      draw();
-
-      canvas.addEventListener('click', () => {
-        cancelAnimationFrame(timerId);
-      });
     </script>
   </body>
 </html>
