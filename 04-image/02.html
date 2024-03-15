@@ -95,11 +95,12 @@
         brush = 이벤트.target.getAttribute('data-type');
         colorVal = 이벤트.target.getAttribute('data-color');
         context.fillStyle = colorVal;
-        console.log(brush);
       }
-
+        // 이미지 저장
       function createImage(이벤트) {
-        const url = canvas.toDataURL('image/png');
+        // toDataURL() 매개변수에 지정된 형식의 이미지 표현이 포함된 데이터 URL 제공
+        // 원하는 파일의 형식과 이미지의 품질을 지정할 수 있다.
+        const url = canvas.toDataURL('image/png'); 
         const imgElem = new Image();
         imgElem.src = url;
         resultImage.appendChild(imgElem);
