@@ -48,12 +48,13 @@
       function render() {
         ctx.drawImage(videoElem, 0, 0, 600, 400);
         imageData = ctx.getImageData(0, 0, 600, 400);
-        leng = imageData.data.length / 4;
+        // console.log(imageData.data) 픽셀의 색상 값
+        leng = imageData.data.length / 4; // 데이터 속성의 길이를 4로 나눈 것
 
         for (let i = 0; i < leng; i++) {
           switch(colorValue) {
             case 'red':
-              imageData.data[i * 4 + 0] = 255;
+              imageData.data[i * 4 + 0] = 255; //color들의 각 색상을 강하게 보이게 하는 것이다.
               break;
             case 'green':
               imageData.data[i * 4 + 1] = 255;
@@ -64,8 +65,8 @@
           }
         }
 
-        ctx.putImageData(imageData, 0, 0);
-        requestAnimationFrame(render);
+        ctx.putImageData(imageData, 0, 0);  // 이미지의 데이터를 다시 put하고 
+        requestAnimationFrame(render); // 다시 그려준다.
       }
 
       btnsElem.addEventListener('click', function (e) {

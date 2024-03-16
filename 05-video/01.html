@@ -9,6 +9,7 @@
         background: #eee;
       }
       video {
+      /* 비디오의 사이즈를 0으로 만들어서 안보이게 처리 */
         position: absolute;
         width: 0;
         height: 0;
@@ -18,10 +19,15 @@
 
   <body>
     <h1>Video</h1>
+    <!-- 브라우저에서는 muted를 하지 않으면 자동 재생이 안되게 처리되어 있다. muted 소리 없애기 loop 무한 재생 , -->
     <video class="video" src="../images/video.mp4" autoplay muted loop></video>
     <canvas class="canvas" width="600" height="400">이 브라우저는 캔버스를 지원하지 않습니다.</canvas>
 
     <script>
+      // 비디오를 canvas 태그에서 사용하는 이유는 비디오도 이미지와 같이 픽셀 단위로 조작이 가능하고, 색상도 변경할 수 있다.또 잘게 쪼개서 작업을 할 수 있어서 특수한 용도가 있는 경우에 비디오를 캔버스에서 비디오 재생을 한다.
+
+      // 비디오가 재생이 되면 계속 반복적으로 canvas에 그리고 있다. 이미지 대신에 비디오를 그렸다고 생각하면 된다.
+
       const canvas = document.querySelector('.canvas');
       const ctx = canvas.getContext('2d');
       let canPlayState = false;
@@ -30,11 +36,13 @@
       ctx.fillText('비디오 로딩 중..', 300, 200);
 
       const videoElem = document.querySelector('.video');
-      videoElem.addEventListener('canplaythrough', render);
+      videoElem.addEventListener('canplaythrough', render); // 비디오가 재생 준비가 되면 발생하는 이벤트
+
+
 
       function render() {
-        ctx.drawImage(videoElem, 0, 0, 600, 400);
-        requestAnimationFrame(render);
+        ctx.drawImage(videoElem, 0, 0, 600, 400); // video element를 넣어주면 된다.
+        requestAnimationFrame(render); // 동영상 반복시키는 작업
       }
     </script>
   </body>

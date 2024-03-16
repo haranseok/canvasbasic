@@ -37,16 +37,16 @@
       ];
 
       function render() {
-        console.log(videoElem.currentTime);
+        // console.log(videoElem.currentTime); // 비디오의 현재 재생 시간
         ctx.drawImage(videoElem, 0, 0, 600, 400);
         
         for (let i = 0; i < messages.length; i++) {
-          if (videoElem.currentTime > messages[i].time) {
-            ctx.fillText(messages[i].message, messages[i].x, messages[i].y);
+          if (videoElem.currentTime > messages[i].time) { // 비디오의 현재 재생 시간이 time보다 커지면..true
+            ctx.fillText(messages[i].message, messages[i].x, messages[i].y); // 텍스트 내용, 그려질 좌표 위치
           }
         }
 
-        requestAnimationFrame(render);
+        requestAnimationFrame(render); //빠르게 작업을 하다가 계속 전체를 지우고 반복적으로 다시 그리는 작업을 하는 것.
       }
     </script>
   </body>
