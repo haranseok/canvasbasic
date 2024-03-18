@@ -19,18 +19,18 @@
       const canvas = document.querySelector('.canvas');
       const context = canvas.getContext('2d');
 
-      context.fillRect(200, 200, 100, 100);
+      context.fillRect(200, 200, 100, 100); // 사각형 그리기 200, 200 위치에 100, 100 사이즈
 
       function clickHandler(이벤트) {
-        // console.log(이벤트.clientX, 이벤트.clientY);
-        // console.log(이벤트.layerX, 이벤트.layerY);
-        const x = 이벤트.layerX;
-        const y = 이벤트.layerY;
-
+        console.log(이벤트.clientX - 이벤트.target.getBoundingClientRect().left)
+        console.log(이벤트.clientY - 이벤트.target.getBoundingClientRect().top)
+        const x = 이벤트.clientX - 이벤트.target.getBoundingClientRect().left;
+        const y = 이벤트.clientY - 이벤트.target.getBoundingClientRect().top;
         if (x > 200 &&
             x < 200 + 100 &&
             y > 200 &&
             y < 200 + 100) {
+            // 사각형을 클릭하면 작동 - 좌표에 제한을 걸어둔 것. ( 사각형의 태그가 그려서져 있지 않아서 별도로 클릭 이벤트를 적용할 수 없으니 클릭 범위를 지정해주는 것 )
           console.log('x ok');
         }
       }
