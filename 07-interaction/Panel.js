@@ -1,25 +1,14 @@
 class Panel {
-	constructor() {
-		this.scale = 0.01;
-		this.angle = 0;
-	}
+  constructor() {
+    this.draw();
+  }
 
-	draw() {
-		context.fillStyle = 'rgba(255,0,0,0.8)';
-		// 변환 초기화;
-		context.resetTransform();
-		// context.setTransform(1,0,0,1,0,0);
-		context.translate(oX, oY);
-		context.scale(this.scale, this.scale);
-		context.rotate(canUtil.toRadian(this.angle));
-		context.translate(-oX, -oY);
-		context.fillRect(oX-150, oY-150, 300, 300);
-		context.resetTransform();
-	}
+  draw() {
+    context.fillStyle = "#fff000";
+    // 만약, 정사각형의 300, 300 짜리를 그린다고 하면 canvas가 600*400이고 x가 150이어야하고, y는 50이라고...
 
-	showContent() {
-		console.log('showContent 실행');
-		context.fillStyle = '#fff';
-		context.fillText(selectedBox.index, oX, oY);
-	}
+    // center를 중심으로 panel width의 절반만큼 땡겨주면 가운데 정렬이 된다.
+    // x, y, width, height
+    context.fillRect(oX - 150, oY - 150, 300, 300);
+  }
 }

@@ -16,76 +16,94 @@
     <canvas class="canvas" width="600" height="400"></canvas>
     
     <script src="utils.js"></script>
-    <!-- <script src="Box.js"></script> -->
+    <script src="Box.js"></script>
     <script src="Panel.js"></script>
     <script>
       const canvas = document.querySelector('.canvas');
       const context = canvas.getContext('2d');
       const boxes = [];
       const mousePos = {x:0, y:0};
+      let panel;
       let selectedBox; // 클릭된 box
-
-      context.font = 'bold 30px sans-serif'
-      class Box {
-        // 생성자
-        constructor(index, x, y, speed){
-          this.index = index;
-          this.x = x;
-          this.y = y;
-          this.speed = speed;
-          this.width  = 100;
-          this.height = 100;
-          this.draw(); // 생성하는 순간 x, y 생성되고 draw 함수까지 호출
-        }
-
-        draw(){
-          context.fillStyle = 'rgba(0,0,0,0.5)';
-          context.fillRect(this.x, this.y, 100, 100);
-          context.fillStyle = '#fff';
-          context.fillText(this.index, this.x+30, this.y+30) // 들어갈 텍스트 내용, 좌표;
-        }
-      }
       
+      // 중점 - Panel Class에서 사용하고 있음.
+      let oX; 
+      let oY;
+      
+      let step; // 애플리케이션의 상태(단계) 저장 1 - 4
+      
+      context.font = 'bold 30px sans-serif'
+
       function render(){
         context.clearRect(0, 0, canvas.width, canvas.height)
         let box;
         for(let i = 0; i < boxes.length; i++){
           box = boxes[i];
-          box.x += box.speed;
-          if(box.x > canvas.width){
-            box.x = -box.width; // 박스가 0에서 부터 생성되어 나오는 것이 아닌 -를 줘서 안에서 생겨서 오는 느낌으로 작업
-          }
-          box.draw()
+        //   box.x += box.speed;
+        //   if(box.x > canvas.width){
+        //     box.x = -box.width; // 박스가 0에서 부터 생성되어 나오는 것이 아닌 -를 줘서 안에서 생겨서 오는 느낌으로 작업
+        //   }
+          box.draw();
         }  
+        
+        switch (step){
+            case 1:
+            for(let i = 0; i < boxes.length; i++){
+                    box = boxes[i];
+                    box.x += box.speed;
+                    if(box.x > canvas.width){
+                        box.x = -box.width; // 박스가 0에서 부터 생성되어 나오는 것이 아닌 -를 줘서 안에서 생겨서 오는 느낌으로 작업
+                    }
+                } 
+            break;
+            case 2: 
+                panel.draw();
+            break;         
+        }
         requestAnimationFrame(render)
       }
-
+      
+      
       let tempX, tempY, tempSpeed; // for문 안에서 계속 변수를 호출하는 것은 바람직하지 않은 형태이기 때문에 for문 밖에서 선언해주고 안에서 값을 재할당해준다.
-      for(let i = 0; i < 10; i++){
-        tempX = Math.random() * canvas.width * 0.8; // 0 ~ 600까지의 랜덤한 숫자
-        tempY = Math.random() * canvas.height * 0.8; // 0 ~ 400까지의 랜덤한 숫자
-        tempSpeed = Math.random() * 4 +1 // 1~5까지의 수
-        boxes.push(new Box(i, tempX, tempY,tempSpeed));  // 랜덤으로 들어갈 값
+      
+      function init(){
+        // 초기화하는 함수
+          stap = 1;
+          oX = canvas.width / 2;
+          oY = canvas.height / 2;
+          for(let i = 0; i < 10; i++){
+              tempX = Math.random() * canvas.width * 0.8; // 0 ~ 600까지의 랜덤한 숫자
+              tempY = Math.random() * canvas.height * 0.8; // 0 ~ 400까지의 랜덤한 숫자
+              tempSpeed = Math.random() * 4 +1 // 1~5까지의 수
+              boxes.push(new Box(i, tempX, tempY,tempSpeed));  // 랜덤으로 들어갈 값
+            }     
+            
+            panel = new Panel();
+            render();
       }
 
       canvas.addEventListener('click', (e)=>{
-        // mouse position
+        // mouse position - 내가 클릭한 위치
         mousePos.x = e.clientX - canvas.getBoundingClientRect().left;
         mousePos.y = e.clientY - canvas.getBoundingClientRect().top;
         let box;
+        // 10개의 박스가 클릭건지 확인.
        for(let i = 0; i < boxes.length; i++){
         box = boxes[i];
         if(mousePos.x > box.x && mousePos.x < box.x + box.width && mousePos.y > box.y && mousePos.y < box.y + box.height){
-          selectedBox = box; // 영역 안에서 클릭된 박스
+          selectedBox = box; // 영역 안에서 클릭된 박스 - 마지막으로 담긴 애의 index를 출력 ( 겹쳐있는 경우에 )
         }
        }
+       
        if(selectedBox){
          console.log(selectedBox.index);
+         step = 2;
          selectedBox = null; // 그 전에 클릭했던 값을 비우기.
        }
       });
 
-      render();
+      
+      init();
 </script>
   </body>
 </html>
